@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-booking-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: event-booking
+  template:
+    metadata:
+      labels:
+        app: event-booking
+    spec:
+      containers:
+      - name: event-booking-container
+        image: event-booking:local        
+        imagePullPolicy: IfNotPresent       
+        ports:
+        - containerPort: 8501

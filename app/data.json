@@ -1,0 +1,29 @@
+{
+    "events": [
+        {
+            "id": "e1",
+            "name": "District Event: RED",
+            "date": "2026-10-15",
+            "capacity": 500,
+            "booked": 120,
+            "description": "The premier district-level gathering. Expect major crowds."
+        },
+        {
+            "id": "e2",
+            "name": "Band Baaja Baarat (Fake Sangeet)",
+            "date": "2026-02-20",
+            "capacity": 200,
+            "booked": 195,
+            "description": "The ultimate themed social. Dress code: Ethnic!"
+        },
+        {
+            "id": "e3",
+            "name": "GlitchOver Gaming Tournament",
+            "date": "2026-04-10",
+            "capacity": 100,
+            "booked": 45,
+            "description": "Campus-wide eSports competition."
+        }
+    ],
+    "bookings": []
+}
