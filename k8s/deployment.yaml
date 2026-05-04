@@ -15,6 +15,6 @@ spec:
       containers:
       - name: event-booking-container
         image: event-booking:local        
-        imagePullPolicy: IfNotPresent       
+        imagePullPolicy: Never      
         ports:
         - containerPort: 8501
