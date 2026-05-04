@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // This ensures Jenkins doesn't get stuck on interactive prompts
         CI = 'true'
+        // This tells Jenkins to look for the tool you named 'sonar-scanner' earlier
+        SCANNER_HOME = tool 'sonar-scanner'
     }
 
     stages {
@@ -13,16 +14,29 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                // This connects using the 'sonar-server' config and token you just made
+                withSonarQubeEnv('sonar-server') {
+                    sh """
+                    \$SCANNER_HOME/bin/sonar-scanner \
+                      -Dsonar.projectKey=event-booking-app \
+                      -Dsonar.projectName="Campus Event Hub" \
+                      -Dsonar.sources=app \
+                      -Dsonar.language=py
+                    """
+                }
+            }
+        }
+
         stage('Build and Push Docker Image') {
             steps {
                 script {
                     echo "Building and Pushing to Docker Hub..."
-                    def dockerImage = "vidit1406/event-booking:latest"
+                    def dockerImage = "YOUR_DOCKERHUB_USERNAME/event-booking:latest"
                     
-                    // Build the image
                     sh "docker build -t ${dockerImage} ."
                     
-                    // Log in and push using your Jenkins credentials
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                         sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
                         sh "docker push ${dockerImage}"
@@ -35,11 +49,8 @@ pipeline {
             steps {
                 script {
                     echo "Applying K8s manifests..."
-                    // Apply the configurations
                     sh "kubectl apply -f k8s/deployment.yaml"
                     sh "kubectl apply -f k8s/service.yaml"
-                    
-                    // Force K8s to restart the pods to pull the brand new image
                     sh "kubectl rollout restart deployment event-booking-app"
                 }
             }
