@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     echo "Building and Pushing to Docker Hub..."
-                    def dockerImage = "YOUR_DOCKERHUB_USERNAME/event-booking:latest"
+                    def dockerImage = "vidit1406/event-booking:latest"
                     
                     sh "docker build -t ${dockerImage} ."
                     
