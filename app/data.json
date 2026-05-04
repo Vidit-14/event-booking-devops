@@ -13,7 +13,7 @@
             "name": "Band Baaja Baarat (Fake Sangeet)",
             "date": "2026-02-20",
             "capacity": 200,
-            "booked": 195,
+            "booked": 196,
             "description": "The ultimate themed social. Dress code: Ethnic!"
         },
         {
@@ -25,5 +25,11 @@
             "description": "Campus-wide eSports competition."
         }
     ],
-    "bookings": []
+    "bookings": [
+        {
+            "name": "arwa",
+            "student_id": "178",
+            "event": "Band Baaja Baarat (Fake Sangeet)"
+        }
+    ]
 }

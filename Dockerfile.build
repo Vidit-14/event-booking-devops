@@ -1,0 +1,27 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system build deps so numpy/pandas can use wheels or build if needed
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+       build-essential \
+       gfortran \
+       pkg-config \
+       libopenblas-dev \
+       liblapack-dev \
+       git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python packages
+COPY requirements.txt ./
+RUN python -m pip install --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy app files
+COPY app/ /app/app/
+
+# Expose Streamlit port
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
