@@ -30,7 +30,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Hero Section
-st.markdown('<p class="hero-text">🚀 Campus Event Hub</p>', unsafe_allow_html=True)
+st.markdown('<p class="hero-text">🚀 SPIT Campus Event Hub</p>', unsafe_allow_html=True)
 st.markdown('<p class="sub-hero">The official portal. Secure your spot before they sell out.</p>', unsafe_allow_html=True)
 st.divider()
 
